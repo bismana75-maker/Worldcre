@@ -212,15 +212,27 @@ const AdminPage = () => {
     }
   };
 
+  const saveLocalContact = (data) => {
+    localStorage.setItem('worldcreation_contact', JSON.stringify(data));
+  };
+
   const handleSave = async () => {
     setSaving(true);
     try {
       const response = await axios.put(`${API}/contact`, contactInfo);
       setContactInfo(response.data);
+      saveLocalContact(response.data);
       toast.success('Coordonnées mises à jour avec succès !');
     } catch (error) {
       console.error('Error updating contact info:', error);
-      toast.error('Erreur lors de la sauvegarde');
+      // Sauvegarder localement en cas d'erreur API
+      const updatedContact = {
+        ...contactInfo,
+        updated_at: new Date().toISOString()
+      };
+      setContactInfo(updatedContact);
+      saveLocalContact(updatedContact);
+      toast.success('Coordonnées sauvegardées localement');
     } finally {
       setSaving(false);
     }
