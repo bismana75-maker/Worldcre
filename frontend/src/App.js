@@ -22,13 +22,32 @@ const Home = () => {
   const [contactInfo, setContactInfo] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const getLocalContact = () => {
+    const localData = localStorage.getItem('worldcreation_contact');
+    return localData ? JSON.parse(localData) : {
+      id: 'worldcreation-main',
+      name: 'Worldcreation',
+      email: 'Worldcreation@gmail.com',
+      phone: '0745485037',
+      location: 'Île-de-France, France',
+      title: 'Créateur d\'Expériences Web',
+      signature: '',
+      updated_at: new Date().toISOString()
+    };
+  };
+
   const fetchContactInfo = async () => {
     try {
       const response = await axios.get(`${API}/contact`);
       setContactInfo(response.data);
+      // Sauvegarder en local comme backup
+      localStorage.setItem('worldcreation_contact', JSON.stringify(response.data));
     } catch (error) {
       console.error('Error fetching contact info:', error);
-      toast.error('Erreur lors du chargement des coordonnées');
+      // Utiliser les données locales en fallback
+      const localContact = getLocalContact();
+      setContactInfo(localContact);
+      toast.error('Mode hors ligne - données locales utilisées');
     } finally {
       setLoading(false);
     }
