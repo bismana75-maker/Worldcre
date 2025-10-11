@@ -37,6 +37,35 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+# Contact/Profile Models
+class ContactInfo(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: str
+    phone: str
+    location: str
+    title: str
+    signature: str = ""
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class ContactInfoCreate(BaseModel):
+    name: str
+    email: str
+    phone: str
+    location: str
+    title: str
+    signature: str = ""
+
+class ContactInfoUpdate(BaseModel):
+    name: str = None
+    email: str = None
+    phone: str = None
+    location: str = None
+    title: str = None
+    signature: str = None
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
