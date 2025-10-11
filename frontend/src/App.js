@@ -11,8 +11,11 @@ import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { Badge } from "@/components/ui/badge";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// API URL for Vercel deployment
+const API_BASE = process.env.NODE_ENV === 'production' 
+  ? '' // Utilise le même domaine en production
+  : process.env.REACT_APP_BACKEND_URL || 'http://localhost:3000';
+const API = `${API_BASE}/api`;
 
 // Home Page - Display current contact info
 const Home = () => {
