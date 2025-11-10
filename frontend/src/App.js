@@ -1,114 +1,104 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./App.css";
+import React, { useEffect, useRef } from 'react';
+import './App.css';
 
 function App() {
   const canvasRef = useRef(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    projectType: "Site vitrine",
-    message: "",
-  });
-  const [status, setStatus] = useState("");
 
+  // 🎨 Animation du fond
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
 
-    // Set canvas size
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener('resize', resize);
 
-    // Audio wave animation
-    let animationId;
-    const waves = [];
-
-    // Create wave data
-    for (let i = 0; i < 100; i++) {
-      waves.push({
-        x: i * 15,
-        amplitude: Math.random() * 200 + 50,
-        frequency: Math.random() * 0.02 + 0.01,
-        phase: Math.random() * Math.PI * 2,
-      });
-    }
+    const waves = Array.from({ length: 100 }, (_, i) => ({
+      x: i * 15,
+      amplitude: Math.random() * 200 + 50,
+      frequency: Math.random() * 0.02 + 0.01,
+      phase: Math.random() * Math.PI * 2,
+    }));
 
     const animate = (time) => {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Draw audio waves
-      ctx.strokeStyle = "#00ffff";
+      ctx.strokeStyle = '#00ffff';
       ctx.lineWidth = 2;
-      ctx.shadowColor = "#00ffff";
+      ctx.shadowColor = '#00ffff';
       ctx.shadowBlur = 10;
 
       waves.forEach((wave) => {
         ctx.beginPath();
         const centerY = canvas.height / 2;
-        const waveHeight =
-          Math.sin(time * wave.frequency + wave.phase) * wave.amplitude;
-
+        const waveHeight = Math.sin(time * wave.frequency + wave.phase) * wave.amplitude;
         ctx.moveTo(wave.x, centerY - waveHeight);
         ctx.lineTo(wave.x, centerY + waveHeight);
         ctx.stroke();
-
-        // Update wave properties for animation
         wave.phase += 0.02;
       });
 
-      animationId = requestAnimationFrame(animate);
+      requestAnimationFrame(animate);
     };
 
     animate(0);
-
-    // Cleanup
-    return () => {
-      if (animationId) cancelAnimationFrame(animationId);
-    };
+    return () => window.removeEventListener('resize', resize);
   }, []);
 
-  // Form handlers
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // 🧭 Scroll fluide vers les ancres (#about, #contact, etc.)
+  useEffect(() => {
+    const scrollToHash = () => {
+      const id = window.location.hash.replace('#', '');
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
 
+    scrollToHash();
+    window.addEventListener('hashchange', scrollToHash);
+    return () => window.removeEventListener('hashchange', scrollToHash);
+  }, []);
+
+  // 📩 Fonction d’envoi du message via ton API
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Envoi en cours...");
+
+    const form = e.target;
+    const data = {
+      name: form.querySelector('input[type="text"]').value,
+      email: form.querySelector('input[type="email"]').value,
+      project: form.querySelector('select').value,
+      message: form.querySelector('textarea').value,
+    };
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
 
-      if (response.ok) {
-        setStatus("✅ Message envoyé avec succès !");
-        setFormData({
-          name: "",
-          email: "",
-          projectType: "Site vitrine",
-          message: "",
-        });
+      const result = await res.json();
+      if (result.ok) {
+        alert('✅ Message envoyé avec succès !');
+        form.reset();
       } else {
-        const err = await response.text();
-        console.error("Erreur serveur :", err);
-        setStatus("❌ Erreur lors de l’envoi. Réessayez.");
+        alert('❌ Erreur : ' + result.message);
       }
-    } catch (error) {
-      console.error("Erreur réseau :", error);
-      setStatus("❌ Impossible de contacter le serveur.");
+    } catch (err) {
+      alert('⚠️ Une erreur est survenue : ' + err.message);
     }
   };
 
   return (
     <div className="app">
-      {/* Background Canvas */}
+      {/* CANVAS FOND */}
       <canvas ref={canvasRef} className="background-canvas" />
 
-      {/* Header Navigation */}
+      {/* NAVBAR */}
       <nav className="navbar">
         <div className="nav-container">
           <div className="nav-brand">
@@ -124,7 +114,7 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* HERO */}
       <section className="hero">
         <div className="hero-content">
           <h1 className="hero-title">Worldcreation</h1>
@@ -145,121 +135,84 @@ function App() {
         </div>
       </section>
 
-      {/* ... Toutes tes sections About, Services, Portfolio, Blog (inchangées) ... */}
-
-      {/* Contact Section */}
-      <section id="contact" className="contact-section">
+      {/* À PROPOS */}
+      <section id="about" className="about-section">
         <div className="container">
-          <div className="section-header">
-            <h2>Démarrons Votre Projet</h2>
-            <p>Prêt à créer quelque chose d'exceptionnel ensemble ?</p>
-          </div>
-
-          <div className="contact-grid">
-            <div className="contact-form-container">
-              <h3>Parlons de votre projet</h3>
-              <form className="contact-form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <label>Nom *</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>Email *</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label>Type de projet</label>
-                  <select
-                    name="projectType"
-                    value={formData.projectType}
-                    onChange={handleChange}
-                  >
-                    <option>Site vitrine</option>
-                    <option>E-commerce</option>
-                    <option>Application web</option>
-                    <option>Maintenance</option>
-                    <option>Autre</option>
-                  </select>
-                </div>
-
-                <div className="form-group">
-                  <label>Message *</label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                  ></textarea>
-                </div>
-
-                <button type="submit" className="btn btn-primary">
-                  Envoyer le message
-                </button>
-
-                {status && <p className="form-status">{status}</p>}
-              </form>
+          <div className="about-grid">
+            <div className="about-content">
+              <h2>À Propos</h2>
+              <p>
+                Passionné par la création digitale, je conçois des sites web et applications sur mesure qui reflètent l'identité unique de chaque projet.
+              </p>
             </div>
-
-            <div className="contact-info-container">
-              <div className="contact-info-card">
-                <h3>Mes coordonnées</h3>
-                <div className="contact-details">
-                  <div className="contact-detail">
-                    <span className="icon">✉️</span>
-                    <a href="mailto:contact@worldcreation.fr">contact@worldcreation.fr</a>
-                  </div>
-                  <div className="contact-detail">
-                    <span className="icon">📞</span>
-                    <span>07 71 48 20 25</span>
-                  </div>
-                  <div className="contact-detail">
-                    <span className="icon">📍</span>
-                    <span>Île-de-France, France</span>
-                  </div>
-                </div>
-              </div>
+            <div className="about-image">
+              <img
+                src="https://images.unsplash.com/photo-1502810190503-8303352d0dd1?w=600&h=400&fit=crop"
+                alt="À propos"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* SERVICES */}
+      <section id="services" className="services-section">
+        <div className="container">
+          <h2>Mes Services</h2>
+          <p>Je vous accompagne dans tous vos projets web, de la conception à la mise en ligne.</p>
+        </div>
+      </section>
+
+      {/* PORTFOLIO */}
+      <section id="portfolio" className="portfolio-section">
+        <div className="container">
+          <h2>Portfolio</h2>
+          <p>Découvrez mes dernières créations et projets réalisés pour mes clients.</p>
+        </div>
+      </section>
+
+      {/* BLOG */}
+      <section id="blog" className="blog-section">
+        <div className="container">
+          <h2>Blog</h2>
+          <p>Actualités, conseils et tendances du développement web.</p>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="contact-section">
+        <div className="container">
+          <h2>Démarrons Votre Projet</h2>
+          <p>Prêt à créer quelque chose d'exceptionnel ensemble ?</p>
+
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <label>Nom *</label>
+            <input type="text" required />
+
+            <label>Email *</label>
+            <input type="email" required />
+
+            <label>Type de projet</label>
+            <select>
+              <option>Site vitrine</option>
+              <option>E-commerce</option>
+              <option>Application web</option>
+              <option>Maintenance</option>
+              <option>Autre</option>
+            </select>
+
+            <label>Message *</label>
+            <textarea rows={4} required></textarea>
+
+            <button type="submit" className="btn btn-primary">Envoyer le message</button>
+          </form>
+        </div>
+      </section>
+
+      {/* FOOTER */}
       <footer className="footer">
         <div className="container">
-          <div className="footer-content">
-            <div className="footer-brand">
-              <h3>WorldCreation</h3>
-              <p>Créateur d'Expériences Web</p>
-            </div>
-
-            <div className="footer-contacts">
-              <a href="mailto:contact@worldcreation.fr">contact@worldcreation.fr</a>
-              <span>07 71 48 20 25</span>
-              <span>Île-de-France, France</span>
-            </div>
-          </div>
-
-          <div className="footer-bottom">
-            <p>&copy; 2024 WorldCreation. Tous droits réservés.</p>
-            <p className="footer-credit">
-              Développé par <strong>WORLD CREATION</strong>
-            </p>
-          </div>
+          <p>&copy; 2025 WorldCreation. Tous droits réservés.</p>
         </div>
       </footer>
     </div>
