@@ -1,17 +1,7 @@
 {
-  "name": "worldcreation-site",
-  "version": "1.0.0",
+  "name": "worldcre-root",
   "private": true,
-  "scripts": {
-    "dev": "cd frontend && yarn start",
-    "build": "cd frontend && yarn build",
-    "start": "cd frontend && yarn start",
-    "export": "cd frontend && yarn build"
-  },
-  "dependencies": {
-    "@vercel/kv": "^1.0.1"
-  },
-  "engines": {
-    "node": ">=16.0.0"
-  }
+  "version": "1.0.0",
+  "scripts": { "build": "cd frontend && yarn build" },
+  "dependencies": { "nodemailer": "^6.9.11" }
 }
