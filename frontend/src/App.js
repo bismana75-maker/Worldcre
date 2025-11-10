@@ -532,12 +532,13 @@ function App() {
               <h3>WorldCreation</h3>
               <p>Créateur d'Expériences Web</p>
             </div>
-            <div className="footer-contacts">
-              <a href="mailto:Worldcreation@gmail.com">Worldcreation@gmail.com</a>
-              <span>•</span>
-              <span>0745485037</span>
-              <span>•</span>
-              <span>Île-de-France, France</span>
+        <div className="footer-contacts">
+        <a href="mailto:contact@worldcreation.fr">contact@worldcreation.fr</a>
+        <span></span>
+        <span>07 71 48 20 25</span>
+        <span></span>
+        <span>Île-de-France, France</span>
+        </div>
             </div>
           </div>
           <div className="footer-bottom">
