@@ -250,14 +250,68 @@ export default function App() {
       </section>
 
       {/* BLOG */}
-      <section id="blog" className="blog-section section">
-        <div className="container">
-          <div className="section-header">
-            <h2>Blog</h2>
-            <p>Actualités, conseils et tendances du web.</p>
-          </div>
+<section id="blog" className="blog-section section">
+  <div className="container">
+    <div className="section-header">
+      <h2>Blog</h2>
+      <p>Actualités, conseils et tendances du web.</p>
+    </div>
+
+    <div className="blog-grid">
+      <article className="blog-item">
+        <div className="blog-image">
+          <img
+            src="https://images.unsplash.com/photo-1519217651866-847339e674d4?w=600&h=300&fit=crop"
+            alt="Tendances Web Design 2024"
+          />
         </div>
-      </section>
+        <div className="blog-content">
+          <div className="blog-meta">
+            <span className="blog-category">Design</span>
+            <span className="blog-time">5 min • 14/03/2024</span>
+          </div>
+          <h3>Les Tendances du Web Design 2024</h3>
+          <p>De la simplicité à l’IA générative.</p>
+          <a href="#" className="blog-link">Lire la suite →</a>
+        </div>
+      </article>
+
+      <article className="blog-item">
+        <div className="blog-image">
+          <img
+            src="https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=600&h=300&fit=crop"
+            alt="React vs Vue.js"
+          />
+        </div>
+        <div className="blog-content">
+          <div className="blog-meta">
+            <span className="blog-category">Dév</span>
+            <span className="blog-time">8 min • 09/03/2024</span>
+          </div>
+          <h3>React vs Vue.js : Quel Framework ?</h3>
+          <a href="#" className="blog-link">Lire la suite →</a>
+        </div>
+      </article>
+
+      <article className="blog-item">
+        <div className="blog-image">
+          <img
+            src="https://images.unsplash.com/photo-1654618977232-a6c6dea9d1e8?w=600&h=300&fit=crop"
+            alt="Performance Web"
+          />
+        </div>
+        <div className="blog-content">
+          <div className="blog-meta">
+            <span className="blog-category">Perf</span>
+            <span className="blog-time">6 min • 04/03/2024</span>
+          </div>
+          <h3>Optimiser la Performance Web</h3>
+          <a href="#" className="blog-link">Lire la suite →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
 
       {/* CONTACT */}
       <section id="contact" className="contact-section section">
@@ -276,6 +330,43 @@ export default function App() {
               <p>✉️ contact@worldcreation.fr</p>
               <p>📞 07 71 48 20 25</p>
               <p>📍 Île-de-France, France</p>
+        {/* Témoignages */}
+<div className="testimonials">
+  <h3>Témoignages</h3>
+
+  <div className="testimonial">
+    <div className="testimonial-header">
+      <img
+        src="https://images.unsplash.com/photo-1494790108755-2616b612b977?w=100&h=100&fit=crop&crop=face"
+        alt="Marie Dubois"
+      />
+      <div>
+        <h4>Marie Dubois</h4>
+        <p>Restaurant Le Gourmet</p>
+      </div>
+    </div>
+    <p className="testimonial-text">
+      “Site magnifique, nos réservations ont bondi de 40 % !”
+    </p>
+  </div>
+
+  <div className="testimonial">
+    <div className="testimonial-header">
+      <img
+        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+        alt="Thomas Martin"
+      />
+      <div>
+        <h4>Thomas Martin</h4>
+        <p>STYLE MINIMAL</p>
+      </div>
+    </div>
+    <p className="testimonial-text">
+      “E-commerce au-delà de nos attentes. Design + fonctionnalités au top.”
+    </p>
+  </div>
+</div>
+
             </div>
           </div>
         </div>
