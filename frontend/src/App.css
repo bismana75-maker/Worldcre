@@ -492,3 +492,82 @@ input:focus, select:focus, textarea:focus{
     transform: translateY(0);
   }
 }
+/* =======================================================
+   STYLE DEGRADÉ + LUMINOSITÉ DOUCE POUR TITRE & LIENS
+======================================================= */
+
+/* --- TITRE WORLD CREATION --- */
+.nav-brand h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #03d5ff, #b100ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  filter: drop-shadow(0 0 3px rgba(0, 255, 255, 0.3));
+  animation: softPulse 4s ease-in-out infinite;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.nav-brand h1:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.5));
+}
+
+/* --- LIENS DE NAVIGATION --- */
+.nav-link {
+  font-weight: 600;
+  color: transparent;
+  background: linear-gradient(90deg, #03d5ff, #b100ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 2px rgba(0, 255, 255, 0.2));
+  transition: all 0.3s ease;
+  animation: softPulse 6s ease-in-out infinite;
+}
+
+.nav-link:hover {
+  filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.6));
+  transform: scale(1.05);
+}
+
+/* --- BOUTONS GÉNÉRAUX (même effet doux) --- */
+.btn-primary,
+.btn-secondary,
+.btn-service,
+button,
+input[type="submit"] {
+  background: linear-gradient(90deg, #03d5ff, #b100ff);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 255, 255, 0.25);
+  animation: softPulse 5s ease-in-out infinite;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.btn-service:hover,
+button:hover,
+input[type="submit"]:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(0, 255, 255, 0.45);
+}
+
+/* --- Animation lumineuse douce --- */
+@keyframes softPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 3px rgba(0, 255, 255, 0.25));
+  }
+  50% {
+    filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.35));
+  }
+}
+
