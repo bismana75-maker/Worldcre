@@ -1,32 +1,64 @@
-/* --- SMOOTH SCROLL & FIXES --- */
-
-/* Scroll fluide pour les ancres (#about, #contact, etc.) */
-html {
-  scroll-behavior: smooth;
+/* --- RESET DE BASE --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* La navbar reste visible en haut */
-.navbar {
-  position: sticky; /* ou fixed si tu veux qu’elle reste toujours visible */
-  top: 0;
-  z-index: 20;
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
 }
 
-/* Chaque section a un petit espace pour ne pas être cachée par la navbar */
-section {
-  scroll-margin-top: 90px; /* ajuste selon la hauteur de ta navbar */
-}
-
-/* Le canvas du fond reste derrière et ne bloque pas les clics */
+/* --- BACKGROUND ANIMÉ (CANVAS) --- */
 .background-canvas {
   position: fixed;
   inset: 0;
   z-index: 0;
-  pointer-events: none; /* essentiel pour que les liens fonctionnent */
+  pointer-events: none; /* essentiel pour que les clics fonctionnent */
 }
 
-/* Le contenu du site est au-dessus du canvas */
-.app, .hero, .about-section, .services-section, .portfolio-section, .blog-section, .contact-section {
+/* --- STRUCTURE GÉNÉRALE --- */
+.app {
   position: relative;
   z-index: 1;
 }
+
+section {
+  padding: 100px 5%;
+}
+
+/* --- NAVIGATION --- */
+.navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  padding: 15px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand h1 {
+  font-size: 1.5rem;
+  color: cyan;
+  font-weight: 600;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
