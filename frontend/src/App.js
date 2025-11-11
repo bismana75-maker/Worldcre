@@ -17,6 +17,10 @@ export default function App() {
     };
     resize();
     window.addEventListener("resize", resize);
+    useEffect(() => {
+  const badge = document.getElementById("emergent-badge");
+  if (badge) badge.remove();
+}, []);
 
     const N = 110;
     const bars = new Array(N).fill(0).map((_, i) => ({
