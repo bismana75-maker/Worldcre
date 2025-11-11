@@ -6,7 +6,7 @@ export default function App() {
   const canvasRef = useRef(null);
   const [status, setStatus] = useState("");
 
-  // === Animation du fond "audio wave" ===
+  // === Fond "audio wave" animé ===
   useEffect(() => {
     const c = canvasRef.current;
     const ctx = c.getContext("2d");
@@ -38,8 +38,8 @@ export default function App() {
       ctx.shadowBlur = 4;
 
       const mid = c.height / 2;
-      bars.forEach((b, i) => {
-        const x = (i / N) * c.width;
+      bars.forEach((b) => {
+        const x = (b.x / N) * c.width;
         const h = Math.sin(t * b.f + b.ph) * b.amp;
 
         ctx.beginPath();
@@ -61,7 +61,7 @@ export default function App() {
     };
   }, []);
 
-  // === Suppression définitive du badge Emergent ===
+  // === Suppression du badge Emergent ===
   useEffect(() => {
     const badge = document.getElementById("emergent-badge");
     if (badge) badge.remove();
@@ -116,9 +116,10 @@ export default function App() {
             <div className="about-content">
               <h2>À Propos</h2>
               <p>
-                Passionné par la création digitale, je conçois des sites web et applications sur mesure
-                qui reflètent l'identité unique de chaque projet.
+                Passionné par la création digitale, je conçois des sites web et applications
+                sur mesure qui reflètent l'identité unique de chaque projet.
               </p>
+
               <div className="contact-info">
                 <div className="contact-item">📍 Île-de-France, France</div>
                 <div className="contact-item">
@@ -127,6 +128,7 @@ export default function App() {
                 <div className="contact-item">✅ Disponible pour nouveaux projets</div>
               </div>
             </div>
+
             <div className="about-image">
               <img
                 src="https://images.unsplash.com/photo-1502810190503-8303352d0dd1?w=1200&h=800&fit=crop"
@@ -135,6 +137,7 @@ export default function App() {
             </div>
           </div>
 
+          {/* Stats */}
           <div className="stats-grid">
             <div className="stat-item"><div className="stat-number">50+</div><div className="stat-label">Projets</div></div>
             <div className="stat-item"><div className="stat-number">30+</div><div className="stat-label">Clients</div></div>
@@ -151,30 +154,27 @@ export default function App() {
             <h2>Mes Services</h2>
             <p>Je vous accompagne de la conception à la mise en ligne.</p>
           </div>
+
           <div className="services-grid">
             <div className="service-card">
               <div className="service-icon">🌐</div>
               <h3>Création de Sites Web</h3>
               <p>Sites vitrines élégants et performants.</p>
-              <ul><li>Responsive</li><li>SEO</li><li>UI intuitive</li><li>Performance</li></ul>
             </div>
             <div className="service-card">
               <div className="service-icon">⚡</div>
               <h3>Applications Web</h3>
-              <p>Solutions sur mesure pour votre métier.</p>
-              <ul><li>Dév. custom</li><li>UI moderne</li><li>Sécurité</li><li>Évolutif</li></ul>
+              <p>Solutions sur mesure pour votre activité.</p>
             </div>
             <div className="service-card">
               <div className="service-icon">🛒</div>
               <h3>E-commerce</h3>
-              <p>Boutiques complètes avec paiement sécurisé.</p>
-              <ul><li>Catalogue</li><li>Paiement</li><li>Commandes</li><li>Analytics</li></ul>
+              <p>Boutiques modernes avec paiement sécurisé.</p>
             </div>
             <div className="service-card">
               <div className="service-icon">🔧</div>
               <h3>Maintenance & Support</h3>
               <p>Suivi continu pour garder votre site au top.</p>
-              <ul><li>Mises à jour</li><li>Sauvegardes</li><li>Support</li><li>Monitoring</li></ul>
             </div>
           </div>
         </div>
@@ -192,17 +192,12 @@ export default function App() {
             <div className="portfolio-item">
               <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&h=500&fit=crop" alt="Restaurant Le Gourmet" />
               <h3>Restaurant Le Gourmet</h3>
-              <p>Site vitrine avec réservation en ligne.</p>
+              <p>“Site magnifique, nos réservations ont bondi de 40% !” — Marie Dubois</p>
             </div>
             <div className="portfolio-item">
-              <img src="https://images.unsplash.com/photo-1712898825439-3a18654c67d3?w=800&h=500&fit=crop" alt="Style Minimal" />
-              <h3>Style Minimal Boutique</h3>
-              <p>Boutique e-commerce moderne et fluide.</p>
-            </div>
-            <div className="portfolio-item">
-              <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=500&fit=crop" alt="Fit Coach" />
-              <h3>Fit Coach Personal</h3>
-              <p>Site professionnel pour coach sportif.</p>
+              <img src="https://images.unsplash.com/photo-1712898825439-3a18654c67d3?w=800&h=500&fit=crop" alt="STYLE MINIMAL" />
+              <h3>STYLE MINIMAL</h3>
+              <p>“E-commerce au-delà de nos attentes. Design + fonctionnalités au top.” — Thomas Martin</p>
             </div>
           </div>
         </div>
@@ -214,17 +209,6 @@ export default function App() {
           <div className="section-header">
             <h2>Blog</h2>
             <p>Actualités, conseils et tendances du web.</p>
-          </div>
-          <div className="blog-grid">
-            <article className="blog-item">
-              <img src="https://images.unsplash.com/photo-1519217651866-847339e674d4?w=600&h=300&fit=crop" alt="Tendances Web 2024" />
-              <h3>Les Tendances du Web Design 2024</h3>
-              <p>De la simplicité à l’IA générative.</p>
-            </article>
-            <article className="blog-item">
-              <img src="https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=600&h=300&fit=crop" alt="React vs Vue.js" />
-              <h3>React vs Vue.js : Quel Framework ?</h3>
-            </article>
           </div>
         </div>
       </section>
@@ -240,6 +224,17 @@ export default function App() {
             <div className="contact-form-container">
               <h3>Parlons de votre projet</h3>
               <ContactForm />
+            </div>
+
+            <div className="contact-info-container">
+              <div className="contact-info-card">
+                <h3>Mes coordonnées</h3>
+                <div className="contact-details">
+                  <div>✉️ contact@worldcreation.fr</div>
+                  <div>📞 07 71 48 20 25</div>
+                  <div>📍 Île-de-France, France</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
