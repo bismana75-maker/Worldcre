@@ -1,8 +1,11 @@
-import ContactForm from "./ContactForm";
+import React, { useEffect, useRef } from 'react';
+import { useState } from "react";
+import axios from "axios";
 import './App.css';
 
 function App() {
   const canvasRef = useRef(null);
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     const canvas = canvasRef.current;
