@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useState } from "react";
+import ContactForm from "./ContactForm";
 import axios from "axios";
 import './App.css';
 
