@@ -83,27 +83,31 @@ export default function App() {
         </div>
       </nav>
 
-      {/* HERO */}
-      <section className="hero">
-        <div className="hero-content">
-          <h1 className="hero-title">worldcreation</h1>
-          <h2 className="hero-subtitle">Créateur d'Expériences Web</h2>
-          <p className="hero-description">
-            Transformez vos idées en sites web exceptionnels
-          </p>
-          <div className="hero-buttons">
-            <a href="#portfolio" className="btn btn-primary">Voir mes réalisations</a>
-            <a href="#contact" className="btn btn-secondary">Démarrer un projet</a>
-          </div>
-        </div>
-        <div className="hero-image">
-          <img
-            src="https://images.unsplash.com/photo-1457305237443-44c3d5a30b89?w=1200&h=900&fit=crop"
-            alt="Workspace WorldCreation"
-          />
-        </div>
-      </section>
+     {/* HERO */}
+<section className="hero">
+  <div className="hero-inner">
+    <div className="hero-content">
+      <h1 className="hero-title">worldcreation</h1>
+      <h2 className="hero-subtitle">Créateur d'Expériences Web</h2>
+      <p className="hero-tagline">Par le Peuple, Pour le Peuple</p>
+      <p className="hero-description">
+        Transformez vos idées en sites web exceptionnels
+      </p>
+      <div className="hero-buttons">
+        <a href="#portfolio" className="btn btn-primary">Voir mes réalisations</a>
+        <a href="#contact" className="btn btn-secondary">Démarrer un projet</a>
+      </div>
+    </div>
 
+    <div className="hero-image">
+      <img
+        src="https://images.unsplash.com/photo-1457305237443-44c3d5a30b89?w=1200&h=900&fit=crop"
+        alt="Workspace WorldCreation"
+      />
+    </div>
+  </div>
+</section>
+  
       {/* ABOUT */}
       <section id="about" className="about-section section">
         <div className="container">
