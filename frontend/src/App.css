@@ -570,84 +570,125 @@ input[type="submit"]:hover {
     filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.35));
   }
 }
-/* =======================================================
-   THÈME NUIT ÉLÉGANTE — DOUX, LISIBLE ET PREMIUM
-======================================================= */
-
-/* --- Arrière-plan global --- */
-body {
-  background-color: #08141f;
-  color: #e6f0ff;
+/* ===========================================================
+   Dégradés + lisibilité + z-index + grilles
+   =========================================================== */
+:root{
+  --brand-grad: linear-gradient(90deg, #03d5ff, #b100ff);
 }
 
-/* --- Fond animé : bleu plus foncé et plus doux --- */
-.background-canvas {
-  filter: brightness(0.45) saturate(0.65) contrast(0.9);
-  opacity: 0.8;
-  transition: filter 0.8s ease, opacity 0.8s ease;
+/* Canvas derrière tout */
+.background-canvas{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* --- Titre principal "worldcreation" --- */
-.hero-title {
-  font-size: 4rem;
+/* Le contenu au-dessus */
+.app, .hero, .about-section, .services-section,
+.portfolio-section, .blog-section, .contact-section, .footer{
+  position: relative;
+  z-index: 1;
+}
+
+/* Titre WorldCreation (header) en dégradé doux */
+.nav-brand h1{
+  font-size: 2rem;
   font-weight: 800;
-  text-transform: lowercase;
-  background: linear-gradient(90deg, #4fd3f3, #9a6bff);
+  letter-spacing: 1px;
+  background: var(--brand-grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
-  text-align: center;
-  filter: drop-shadow(0 0 2px rgba(0, 255, 255, 0.15));
-  animation: softPulse 12s ease-in-out infinite;
+  filter: drop-shadow(0 0 3px rgba(0,255,255,.25));
 }
 
-/* --- Sous-titre du hero --- */
-.hero-subtitle {
-  color: #c7dfff;
-  font-weight: 500;
-  text-shadow: 0 0 6px rgba(0, 255, 255, 0.15);
-}
-
-/* --- Image du hero --- */
-.hero-image img {
-  width: 80%;
-  max-width: 850px;
-  display: block;
-  margin: 20px auto 0;
-  border-radius: 14px;
-  opacity: 0.85;
-  filter: brightness(0.85);
-  transition: all 0.6s ease;
-}
-
-.hero-image img:hover {
-  transform: scale(1.02);
-  opacity: 1;
-  filter: brightness(1);
-}
-
-/* --- Liens de navigation (À propos, Services, etc.) --- */
-.nav-link {
-  background: linear-gradient(90deg, #4fd3f3, #9a6bff);
+/* Liens du menu avec le même dégradé */
+.nav-link{
+  position: relative;
+  font-weight: 600;
+  background: var(--brand-grad);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-decoration: none;
-  font-weight: 600;
-  transition: opacity 0.3s ease, text-shadow 0.3s ease;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+.nav-link:after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-6px; height:2px;
+  background: var(--brand-grad);
+  opacity:0; transform: translateY(4px);
+  transition: .2s ease;
+}
+.nav-link:hover:after{ opacity:1; transform: translateY(0); }
+
+/* Titre H1 du hero (gros "worldcreation") en dégradé doux */
+.hero-title{
+  text-transform: lowercase;
+  font-weight: 900;
+  line-height: 1;
+  background: var(--brand-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+          background-clip: text;
+          text-fill-color: transparent;
+  filter: drop-shadow(0 0 3px rgba(0,255,255,.25));
 }
 
-.nav-link:hover {
-  opacity: 0.8;
-  text-shadow: 0 0 6px rgba(160, 102, 255, 0.5);
+/* Image du hero : centrée, plus petite, plus clean */
+.hero-image{
+  display: grid;
+  place-items: center;
+}
+.hero-image img{
+  width: 88%;
+  max-width: 560px;
+  height: auto;
+  border-radius: 18px;
+  object-fit: cover;
+  object-position: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,.35);
 }
 
-/* --- Animation douce --- */
-@keyframes softPulse {
-  0%, 100% {
-    filter: drop-shadow(0 0 2px rgba(80, 200, 255, 0.1));
-  }
-  50% {
-    filter: drop-shadow(0 0 6px rgba(160, 102, 255, 0.25));
-  }
+/* Grille Portfolio */
+.portfolio-section .portfolio-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
 }
+.portfolio-item{
+  background: rgba(0,0,0,.12);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px;
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+}
+.portfolio-image{ position: relative; }
+.portfolio-image img{
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+.portfolio-overlay{
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: rgba(0,0,0,.25);
+  opacity: 0; transition: opacity .25s ease;
+}
+.portfolio-image:hover .portfolio-overlay{ opacity: 1; }
+
+/* Blog grid (si besoin) */
+.blog-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Lisibilité générale : un poil plus de contraste */
+.section-header h2{ text-shadow: 0 1px 12px rgba(0,0,0,.18); }
