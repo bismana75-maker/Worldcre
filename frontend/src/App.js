@@ -5,6 +5,7 @@ import ContactForm from "./ContactForm";
 export default function App() {
   const canvasRef = useRef(null);
   const [status, setStatus] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // === Fond "audio wave" adouci ===
   useEffect(() => {
@@ -78,12 +79,57 @@ export default function App() {
           <div className="nav-brand">
             <h1>WorldCreation</h1>
           </div>
-          <div className="nav-menu">
-            <a href="#about" className="nav-link">À Propos</a>
-            <a href="#services" className="nav-link">Services</a>
-            <a href="#portfolio" className="nav-link">Portfolio</a>
-            <a href="#blog" className="nav-link">Blog</a>
-            <a href="#contact" className="nav-link contact-btn">Contact</a>
+
+          {/* Bouton hamburger (mobile) */}
+          <button
+            className={`nav-toggle ${menuOpen ? "open" : ""}`}
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          {/* Menu principal */}
+          <div className={`nav-menu ${menuOpen ? "open" : ""}`}>
+            <a
+              href="#about"
+              className="nav-link"
+              onClick={() => setMenuOpen(false)}
+            >
+              À Propos
+            </a>
+            <a
+              href="#services"
+              className="nav-link"
+              onClick={() => setMenuOpen(false)}
+            >
+              Services
+            </a>
+            <a
+              href="#portfolio"
+              className="nav-link"
+              onClick={() => setMenuOpen(false)}
+            >
+              Portfolio
+            </a>
+            <a
+              href="#blog"
+              className="nav-link"
+              onClick={() => setMenuOpen(false)}
+            >
+              Blog
+            </a>
+            <a
+              href="https://github.com/bismana75-maker"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-link contact-btn"
+              onClick={() => setMenuOpen(false)}
+            >
+              Contact
+            </a>
           </div>
         </div>
       </nav>
